@@ -28,8 +28,18 @@ export class UserIP extends LitElement {
   // properties that you wish to use as data in HTML, CSS, and the updated life-cycle
   static get properties() {
     return {
-      ip: { type: String, reflect: true },
+      /*Add support into the properties()
+       method for Lit to be aware of a location property so that when it changes, it can be rendered in render() (Type is string) */
+       ip: { type: String, reflect: true }, 
+      location: { type: String, reflect: true }, 
+      cityYouAreIn:  { type: String, reflect: true }, 
+      countryYouAreIn:  { type: String, reflect: true },
+      
+      
+    
     };
+
+      //location will have both country and city
   }
 
   // updated fires every time a property defined above changes
@@ -99,6 +109,12 @@ export class UserIP extends LitElement {
       })
       .then(data => {
         this.ip = data.ip;
+        this.cityYouAreIn = data.cityYouAreIn;
+        this.countryYouAreIn = data.countryYouAreIn;
+
+        this.location = `${data.cityYouAreIn}, ${data.countryYouAreIn}`;
+
+        //this.location = "Your location is: " + data.cityYouAreIn+ ", " + data.countryYouAreIn; //understood that the data. references the getproperties method
         return data;
       });
   }
@@ -135,12 +151,17 @@ export class UserIP extends LitElement {
   }
 
   // this serves very little purpose but at least we're rendering the info
-  render() {
-    return html` <ul>
-      <li><strong class="ipaddress">IP address:</strong> ${this.ip}</li>
+  render() { //im still a little confused on how this works. the syntax is new to me. like the apostrophe after return html
+    return html` <ul> 
+    <li><strong class="ipaddress">IP address: </strong> ${this.ip}</li>
+    <li><strong class="countryYouAreIn">Country you are in: </strong> ${this.countryYouAreIn}</li>
+    <li><strong class="cityYouAreIn">City you are in: </strong> ${this.cityYouAreIn}</li>
+    <li><strong class="location">Location you are in: </strong> ${this.location}</li>
+
       <li></li>
     </ul>`;
   }
-}
+} 
+
 
 customElements.define(UserIP.tag, UserIP);
