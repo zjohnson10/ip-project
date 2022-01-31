@@ -74,9 +74,9 @@ export class LocationFromIP extends LitElement {
     const url = `https://maps.google.com/maps?q=${this.lat},${this.long}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
     return html`<iframe title="Where you are" src="${url}"></iframe> 
       <a href="https://www.google.com/maps/@lat,long,14z">View in Google Maps</a>
-      <wikipedia-query search="State College, Pennsylvania"></wikipedia-query>
-      <wikipedia-query search="State College"></wikipedia-query>
-      <wikipedia-query search="Pennsylvania"></wikipedia-query>`;
+      <wikipedia-query search="${this.city}, ${this.state}"></wikipedia-query>
+      <wikipedia-query search="${this.city}"></wikipedia-query>
+      <wikipedia-query search="${this.state}"></wikipedia-query>`;
   }
 }
 
